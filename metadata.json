@@ -1,0 +1,6 @@
+{
+  "name": "Public Health Signal Fusion Agent",
+  "description": "Autonomous public health early warning system fusing multi-source syndromic signals, weather, healthcare capacity, and Kaggle demographic datasets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
