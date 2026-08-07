@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  --font-display: 'Segoe UI', sans-serif;
+  --font-sans: 'Segoe UI', sans-serif;
+  --font-mono: 'Segoe UI', monospace;
+  --bg-dark: #121212;
+  --surface-dark: #1E1E1E;
+  --surface-container: #2C2C2C;
+  --surface-border: rgba(255, 255, 255, 0.2);
+  --accent-red: #B30000;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: #E0E0E0;
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.border-hud {
+  border: 1px solid var(--surface-border);
+}
+
+.bg-panel {
+  background-color: var(--surface-dark);
+}
+
+.bg-panel-container {
+  background-color: var(--surface-container);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B30000;
+}
+
+/* Custom Leaflet Dark HUD Styles */
+.custom-district-marker {
+  background: transparent;
+  border: none;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #1E1E1E !important;
+  color: #E0E0E0 !important;
+  border: 1px solid #B30000 !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+}
+
+.leaflet-popup-tip {
+  background: #1E1E1E !important;
+  border-left: 1px solid #B30000 !important;
+  border-bottom: 1px solid #B30000 !important;
+}
+
+.leaflet-container {
+  font-family: 'Segoe UI', sans-serif !important;
+  background-color: #121212 !important;
+}
+
