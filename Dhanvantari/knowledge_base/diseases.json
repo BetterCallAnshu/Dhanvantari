@@ -1,0 +1,21 @@
+{
+  "Dengue": {
+    "symptoms": ["High fever", "Severe headache", "Pain behind the eyes", "Joint pain", "Muscle pain", "Rash"],
+    "transmission": "Mosquito bite (Aedes aegypti)",
+    "incubation": "4-10 days",
+    "advisory": "Avoid mosquito bites, use repellents, wear long sleeves, remove standing water.",
+    "resource_rules": {
+        "ORS_Multiplier": 1.2,
+        "TestKit_Multiplier": 1.5
+    }
+  },
+  "Malaria": {
+    "symptoms": ["Fever", "Chills", "Sweats", "Headache", "Nausea", "Vomiting", "Muscle aches"],
+    "transmission": "Mosquito bite (Anopheles)",
+    "incubation": "7-30 days",
+    "advisory": "Use insecticide-treated nets, use repellents.",
+    "resource_rules": {
+        "MosquitoNet_Multiplier": 2.0
+    }
+  }
+}

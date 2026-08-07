@@ -1,0 +1,9 @@
+{
+    "Dengue": {
+        "ORS_Multiplier": 1.2,
+        "TestKit_Multiplier": 1.5
+    },
+    "Malaria": {
+        "MosquitoNet_Multiplier": 2.0
+    }
+}
