@@ -164,6 +164,9 @@ class SupervisorAgent:
             for a in new_alerts
         ]
 
+        # Ensure logs directory exists
+        os.makedirs("logs", exist_ok=True)
+
         for file_path in [self.primary_alerts_path, self.fallback_alerts_path]:
             try:
                 parent_dir = os.path.dirname(file_path)

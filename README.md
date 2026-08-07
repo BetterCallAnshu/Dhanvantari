@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Dhanvantari - Public Health Signal Fusion Agent - Setup Guide
 
-# Run and deploy your AI Studio app
+## Requirements
+- Node.js v22+
+- Python 3.x
 
-This contains everything you need to run your app locally.
+## Setup
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+   (Python dependencies: This project uses only Python standard library modules, no `pip` install required.)
+3. Create environment file:
+   ```bash
+   cp .env.example .env.local
+   ```
+4. Set your `GEMINI_API_KEY` in `.env.local`. 
+   *Note: If no API key is provided, the reasoning agent will automatically use a deterministic local fallback.*
 
-View your app in AI Studio: https://ai.studio/apps/632c3e72-fa0e-4ec9-98e8-f008f44cd429
+## Running the App
+```bash
+npm run dev
+```
+Open your browser to `http://localhost:3000`.
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Attribution & Originality
+- **Third-Party Libraries/Datasets**: This project utilizes the Google Gemini API (`@google/genai`) for automated reasoning and analysis. It integrates public datasets (e.g., Kaggle census, healthcare, and air quality index data) as input for the fusion engine.
+- **Originality**: The core signal fusion logic, risk-scoring algorithms, alert threshold definitions, and reporting/visualization components are original code written specifically for this project.

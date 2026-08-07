@@ -1,5 +1,28 @@
 # CHANGELOG - Public Health Signal Fusion Agent
 
+## [2026-08-07] - Phase 11: Deployment & Evaluation Readiness
+### Added
+- Created `/README.md` with setup, environment requirements, and run instructions.
+- Added `/.env.example` placeholder.
+- Added Python 3 preflight check in `/server.ts` to fail fast.
+- Implemented `os.makedirs("logs", ...)` in `/supervisor.py` for filesystem robustness.
+- Generated `/package-lock.json` and deleted `/bun.lock`.
+- Documented deterministic local fallback in `/reasoning_agent.py` in `README.md`.
+
+### Why
+- Evaluator agents need a reliable, deterministic, simple setup path.
+- Python dependencies are standard library, which simplifies setup and ensures reliability across diverse environments.
+- Robustness against missing directories/read-only filesystem issues.
+
+### Files Touched
+- `/README.md`
+- `/.env.example`
+- `/server.ts`
+- `/supervisor.py`
+- `/CHANGELOG.md`
+- `/package-lock.json`
+- `/bun.lock` (deleted)
+
 ## [2026-08-06] - Phase 10: Report Generator
 ### Added
 - Created `/report_generator.py` with `ReportGenerator`, `generate_incident_report()`, `generate_district_priority_report()`, `generate_resource_request_summary()`, and `generate_all_reports()`.

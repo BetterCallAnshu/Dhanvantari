@@ -1,11 +1,18 @@
 import express from "express";
 import path from "path";
-import { exec } from "child_process";
+import { exec, execSync } from "child_process";
 import fs from "fs";
 import { createServer as createViteServer } from "vite";
 
+// Preflight check
+try {
+  execSync("command -v python3");
+} catch (e) {
+  console.warn("WARNING: Python 3 not found. Python-based features may fail at runtime.");
+}
+
 // Ensure NODE_ENV is set to production if not already set
-process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 async function startServer() {
   const app = express();

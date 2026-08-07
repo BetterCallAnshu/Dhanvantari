@@ -118,6 +118,8 @@ export const IndiaRiskMap: React.FC<IndiaRiskMapProps> = ({
   };
 
   const currentCoords = DISTRICT_COORDINATES[selectedDistrict] || { lat: 20.5937, lng: 78.9629, state: "India" };
+  const safeLat = isNaN(currentCoords.lat) ? 20.5937 : currentCoords.lat;
+  const safeLng = isNaN(currentCoords.lng) ? 78.9629 : currentCoords.lng;
   const currentSummary = districtSummaries[selectedDistrict];
 
   return (
@@ -189,7 +191,7 @@ export const IndiaRiskMap: React.FC<IndiaRiskMapProps> = ({
             maxZoom={18}
           />
 
-          <MapRecenter lat={currentCoords.lat} lng={currentCoords.lng} />
+          <MapRecenter lat={safeLat} lng={safeLng} />
 
           {/* District Pins & Risk Radii */}
           {Object.entries(districtSummaries).map(([distName, summaryVal]) => {
