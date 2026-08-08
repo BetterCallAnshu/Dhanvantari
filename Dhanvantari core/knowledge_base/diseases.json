@@ -1,0 +1,68 @@
+{
+  "Dengue": {
+    "symptoms": ["High fever", "Severe headache", "Pain behind the eyes", "Joint and muscle pain", "Skin rash", "Mild bleeding signs"],
+    "transmission": "Mosquito bite (Aedes aegypti breeding in stagnant water)",
+    "incubation": "4-10 days",
+    "advisory": "Avoid mosquito bites, apply repellents, remove standing water around households.",
+    "resource_rules": {
+      "ORS_Multiplier": 1.2,
+      "TestKit_Multiplier": 1.5
+    }
+  },
+  "Malaria": {
+    "symptoms": ["High fever with chills and rigors", "Sweating", "Severe headache", "Nausea and vomiting", "Muscle aches"],
+    "transmission": "Mosquito bite (Anopheles vector breeding in clean standing water)",
+    "incubation": "7-30 days",
+    "advisory": "Use insecticide-treated bed nets, spray vector breeding zones, use repellents.",
+    "resource_rules": {
+      "MosquitoNet_Multiplier": 2.0
+    }
+  },
+  "Cholera": {
+    "symptoms": ["Profuse rice-water diarrhea", "Severe vomiting", "Rapid dehydration", "Muscle cramps", "Hypovolemic shock"],
+    "transmission": "Ingestion of water or food contaminated with Vibrio cholerae",
+    "incubation": "12 hours - 5 days",
+    "advisory": "Drink only boiled or purified water, maintain strict hand hygiene, eat cooked food.",
+    "resource_rules": {
+      "ORS_Multiplier": 3.0,
+      "IV_Multiplier": 2.5
+    }
+  },
+  "Gastroenteritis": {
+    "symptoms": ["Acute watery diarrhea", "Abdominal cramps", "Nausea and vomiting", "Low-grade fever", "Dehydration"],
+    "transmission": "Fecal-oral route via contaminated water supply or unhygienic food",
+    "incubation": "1-3 days",
+    "advisory": "Use water purification tablets, boil drinking water, ensure food safety.",
+    "resource_rules": {
+      "ORS_Multiplier": 2.5
+    }
+  },
+  "SARI_Flu": {
+    "symptoms": ["High fever", "Persistent cough", "Shortness of breath", "Chest discomfort", "Sore throat", "Fatigue"],
+    "transmission": "Airborne respiratory droplets and fine aerosol transmission",
+    "incubation": "1-4 days",
+    "advisory": "Wear N95/surgical masks in crowded areas, ensure indoor ventilation, practice cough hygiene.",
+    "resource_rules": {
+      "TestKit_Multiplier": 2.0
+    }
+  },
+  "AQI_Strain": {
+    "symptoms": ["Breathing difficulty", "Wheezing", "Dry persistent cough", "Eye and throat irritation", "Chest tightness"],
+    "transmission": "Environmental inhalation of fine particulate matter (PM2.5, PM10, smog)",
+    "incubation": "Acute onset upon exposure (hours)",
+    "advisory": "Limit outdoor exposure during peak AQI hours, run indoor air purifiers, wear N95 filter masks.",
+    "resource_rules": {
+      "Oxygen_Multiplier": 2.0
+    }
+  },
+  "Heatstroke_Dehydration": {
+    "symptoms": ["High body temperature (>40°C)", "Altered mental state or confusion", "Hot dry skin or heavy sweating", "Nausea and dizziness", "Severe thirst and dark urine"],
+    "transmission": "Extreme thermal environmental stress and prolonged direct solar exposure",
+    "incubation": "Acute onset within hours of heat exposure",
+    "advisory": "Stay hydrated with ORS/electrolytes, avoid direct sunlight between 11 AM - 4 PM, rest in shaded areas.",
+    "resource_rules": {
+      "ORS_Multiplier": 3.5,
+      "IV_Multiplier": 2.0
+    }
+  }
+}

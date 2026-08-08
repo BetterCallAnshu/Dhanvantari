@@ -1,0 +1,36 @@
+{
+  "Dengue": {
+    "immediate": ["Isolate febrile patients in screened wards", "Perform Dengue NS1/IgM rapid diagnostic tests", "Initiate early oral hydration therapy", "Monitor platelet count and hematocrit trends"],
+    "short_term": ["Conduct active syndromic case finding in flagged wards", "Deploy thermal fogging and anti-larval vector control", "Mobilize community container-cleaning drives"],
+    "preventive": ["Eliminate stagnant water breeding sites", "Promote personal protection using insect repellents and nets"]
+  },
+  "Malaria": {
+    "immediate": ["Perform blood smear or Rapid Diagnostic Test (RDT)", "Initiate Artemisinin-based Combination Therapy (ACT)", "Monitor temperature and signs of complicated malaria"],
+    "short_term": ["Indoor Residual Spraying (IRS) in high-risk clusters", "Distribute Long-Lasting Insecticidal Nets (LLINs)"],
+    "preventive": ["Clear vegetation near residential areas", "Improve drainage infrastructure to reduce vector habitats"]
+  },
+  "Cholera": {
+    "immediate": ["Establish designated cholera treatment units / rehydration centers", "Administer immediate aggressive oral rehydration solution (ORS)", "Start IV fluids (Ringer's Lactate) for severe dehydration", "Collect stool samples for laboratory surveillance"],
+    "short_term": ["Distribute chlorine tablets and clean water containers", "Inspect public water supply lines and tanker water sources", "Disinfect affected household latrines"],
+    "preventive": ["Promote handwashing with soap at critical times", "Ensure safe municipal sewage disposal and water chlorination"]
+  },
+  "Gastroenteritis": {
+    "immediate": ["Provide immediate rehydration with ORS and zinc supplements", "Screen for signs of severe dehydration in pediatric patients", "Pre-position IV fluid reserves at primary health centers"],
+    "short_term": ["Test community drinking water sources for coliform contamination", "Issue boil-water advisories for impacted wards"],
+    "preventive": ["Enforce food safety regulations for commercial vendors", "Improve sanitation and waste disposal in high-density areas"]
+  },  "SARI_Flu": {
+    "immediate": ["Triage respiratory patients in dedicated fever clinics", "Ensure adequate stocks of pulse oximeters and medical oxygen", "Initiate antiviral or symptomatic supportive therapy"],
+    "short_term": ["Monitor ICU bed and ventilator capacity in district hospitals", "Issue public advisories on respiratory etiquette and mask use"],
+    "preventive": ["Promote influenza vaccination among high-risk groups", "Maintain adequate indoor ventilation in public spaces"]
+  },
+  "AQI_Strain": {
+    "immediate": ["Establish oxygen support corners in emergency wards", "Distribute N95 masks to outdoor municipal workers", "Advise vulnerable patients (asthma/COPD/elderly) to stay indoors"],
+    "short_term": ["Implement dust suppression and water-sprinkling on roads", "Enforce strict bans on open waste burning"],
+    "preventive": ["Expand ambient air quality monitoring coverage", "Develop long-term clean air action plans"]
+  },
+  "Heatstroke_Dehydration": {
+    "immediate": ["Set up rapid cooling stations at emergency departments", "Administer cold IV fluids and oral electrolyte solutions", "Monitor renal function and serum electrolytes"],
+    "short_term": ["Establish public ORS distribution kiosks at bus terminals and markets", "Issue heatwave warnings via local broadcasts and SMS"],
+    "preventive": ["Adjust working hours for outdoor laborers during peak heat", "Create shaded rest spots and green urban spaces"]
+  }
+}

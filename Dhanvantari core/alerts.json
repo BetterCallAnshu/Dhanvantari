@@ -1,0 +1,26 @@
+[
+  {
+    "alert_id": "ALT-20260808-C6D1DB",
+    "cycle_id": "CYC-20260808054651",
+    "timestamp": "2026-08-08T05:47:05.838784+00:00",
+    "district": "Patna",
+    "risk_score": 83.35,
+    "confidence_score": 93.73,
+    "risk_level": "RiskLevel.CRITICAL",
+    "status": "AlertStatus.AUTO_TRIGGERED",
+    "trigger_reason": "CRITICAL RISK THRESHOLD BREACH: Overall Risk 83.3 >= 75.0 and Confidence 93.7% >= 70.0%.",
+    "is_auto_fired": true
+  },
+  {
+    "alert_id": "ALT-20260808-E46C86",
+    "cycle_id": "CYC-20260808054651",
+    "timestamp": "2026-08-08T05:47:05.838784+00:00",
+    "district": "Ludhiana",
+    "risk_score": 79.64,
+    "confidence_score": 94.24,
+    "risk_level": "RiskLevel.CRITICAL",
+    "status": "AlertStatus.AUTO_TRIGGERED",
+    "trigger_reason": "CRITICAL RISK THRESHOLD BREACH: Overall Risk 79.6 >= 75.0 and Confidence 94.2% >= 70.0%.",
+    "is_auto_fired": true
+  }
+]
