@@ -1,0 +1,10 @@
+{
+  "name": "dhanvantari-root-proxy",
+  "private": true,
+  "scripts": {
+    "install": "cd \"Dhanvantari core\" && npm install",
+    "dev": "cd \"Dhanvantari core\" && npm run dev",
+    "build": "cd \"Dhanvantari core\" && npm run build",
+    "start": "cd \"Dhanvantari core\" && npm start"
+  }
+}
