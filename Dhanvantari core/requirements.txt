@@ -1,0 +1,12 @@
+# Dhanvantari Multi-Signal Fusion Engine
+# Requirements file for Python environment
+
+# Python version requirement: Python 3.10+
+# Note: The Dhanvantari core AI multi-agent fusion engine is built using
+# Python's built-in standard libraries (urllib.request, json, dataclasses, csv, logging, argparse).
+# No external third-party PyPI packages are strictly required to run the core pipeline.
+
+# Optional/Recommended packages for extended AI agent capabilities or custom servers:
+# requests>=2.31.0
+# google-genai>=0.1.0
+# pydantic>=2.0.0
