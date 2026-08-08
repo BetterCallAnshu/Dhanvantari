@@ -1,138 +1,130 @@
-# Dhanvantari - Multi-Signal Public Health Fusion Engine
+# Dhanvantari — Multi-Signal Public Health Fusion Engine
 
-> **AI-Powered Epidemic Early Warning & Multi-Agent Intelligence Platform**  
-> *Fusing real-time epidemiological signals, environmental telemetry, hospital infrastructure load, census demographics, and pharmaceutical surge trends to prevent healthcare system collapse.*
+> **AI-powered epidemic early-warning platform.**
+> Fuses disease surveillance, air quality, hospital load, pharmacy demand, and weather/census signals into a deterministic district risk score, then uses an LLM reasoning agent — bounded by a rule-based supervisor — to turn that score into an actionable SITREP.
 
-🌐 **Live Application**: [https://dhanvantari-t2so.onrender.com/](https://dhanvantari-t2so.onrender.com/)
-
----
-
-## 🏆 System Overview & Value Proposition
-
-**Dhanvantari** is an enterprise-grade public health surveillance platform designed to detect epidemic outbreaks and resource bottlenecks days before traditional reporting channels.
-
-By orchestrating a **multi-agent AI workflow**, Dhanvantari aggregates 5 non-linearly correlated data streams across Indian districts, calculates deterministic sub-risk indices, and applies LLM clinical reasoning (Google Gemini) alongside deterministic supervisor safety checks to issue proactive mobilization triggers.
-
-### Key Pillars of Innovation
-
-- **Multi-Signal Data Fusion**: Fuses 5 distinct data streams into a normalized Composite District Risk Index (CDRI).
-- **Hierarchical Multi-Agent Architecture**: Separates deterministic mathematical risk scoring from generative clinical reasoning and rule-bound safety supervision.
-- **Resilient Hybrid Fallback Engine**: Seamlessly executes using Python standard library & Gemini API or auto-degrades gracefully to an internal TypeScript engine if external microservices or API keys are unconfigured.
-- **Actionable Decision Support**: Automatically generates executive SITREPs (Situation Reports) and stock-level mobilization recommendations for public health officers.
+### 🌐 [**Live Demo → dhanvantari-t2so.onrender.com**](https://dhanvantari-t2so.onrender.com/)
 
 ---
 
-## 🏗️ Technical Architecture & Agent Orchestration
+> ⚠️ **Important — repo layout:** the actual project (`package.json`, `server.ts`, all source folders) lives inside the **`Dhanvantari core/`** subfolder, not the repo root. `cd "Dhanvantari core"` before running any command below, and set `Dhanvantari core` as the root directory in any hosting dashboard.
 
-```text
-                                 ┌─────────────────────────┐
-                                 │   Multi-Signal Inputs   │
-                                 └────────────┬────────────┘
-                                              │
-                    ┌─────────────────────────┼─────────────────────────┐
-                    ▼                         ▼                         ▼
-         [Disease Cluster Data]      [AQI Telemetry Data]      [Hospital Load & ICU]
-                    │                         │                         │
-                    └─────────────────────────┼─────────────────────────┘
-                                              │
-                                              ▼
-                                 ┌─────────────────────────┐
-                                 │  1. Signal Fusion Engine│
-                                 │    (Normalization &     │
-                                 │     Weighting Matrix)   │
-                                 └────────────┬────────────┘
-                                              │
-                                              ▼
-                                 ┌─────────────────────────┐
-                                 │    2. Risk Engine       │
-                                 │  (Deterministic Score)  │
-                                 └────────────┬────────────┘
-                                              │
-                                 ┌────────────┴────────────┐
-                                 ▼                         ▼
-                    ┌─────────────────────────┐ ┌─────────────────────────┐
-                    │ 3. Gemini Reasoning     │ │ 4. Supervisor Safety    │
-                    │    Agent                │ │    Agent                │
-                    │ (Clinical Risk Analysis)│ │ (Rule & Bounds Check)   │
-                    └────────────┬────────────┘ └────────────┬────────────┘
-                                 │                         │
-                                 └────────────┬────────────┘
-                                              │
-                                              ▼
-                                 ┌─────────────────────────┐
-                                 │ 5. Report & Alert Engine│
-                                 │ (SITREP & Action Logs)  │
-                                 └─────────────────────────┘
+---
+
+## What it does
+
+Dhanvantari monitors a set of Indian districts and, on each cycle, answers three questions for public health officers:
+
+1. **How bad is it right now?** — a 0–100 Composite District Risk Index, computed deterministically.
+2. **Why?** — a plain-language epidemiological explanation of which signals are driving the score.
+3. **What should we do?** — draft mobilization/resource recommendations, gated so they only fire when risk *and* confidence both clear a hard threshold.
+
+The system is explicitly split so that **no single LLM call can invent a risk score or silently trigger a real-world alert** — math and policy are deterministic Python; only the narrative layer is generative.
+
+---
+
+## Architecture
+
+```
+ Data sources                     Deterministic core                    AI + policy layer
+ ─────────────                    ──────────────────                    ─────────────────
+ Disease surveillance   ┐
+ AQI telemetry          │
+ Hospital bed capacity  ├──▶  Fusion Engine   ──▶  Risk Engine   ──▶  Gemini Reasoning Agent
+ Pharmacy demand        │     (normalizes into        (weighted           (explains the score,
+ Weather / IMD alerts   │      a DistrictSnapshot)      sub-scores,         drafts a SITREP —
+ Census & NDMA/RSS      ┘                               confidence,        never recalculates it)
+                                                         agreement bonus)          │
+                                                              │                    ▼
+                                                              └──▶  Supervisor Agent
+                                                                    (Risk ≥ 75 AND Confidence ≥ 70
+                                                                     → auto-fires alert, else monitors)
+                                                                              │
+                                                                              ▼
+                                                                    Report Generator → SITREP + alerts.json
 ```
 
-### Agent Roles & Responsibilities
+### Components
 
-1. **Signal Fusion Engine**: Loads and harmonizes heterogeneous data formats (CSV/JSON) across 5 parameters: Disease Incident Spike, Environmental AQI Index, Hospital Bed Occupancy, Pharmacy Antibiotic Surge, and Census Vulnerability.
-2. **Deterministic Risk Engine**: Computes weighted risk sub-scores, determining categorical risk levels (`LOW`, `MODERATE`, `HIGH`, `CRITICAL`).
-3. **Gemini Reasoning Agent**: Receives fused context to synthesize narrative epidemiological assessments, potential disease vectors, and recommended clinical countermeasures.
-4. **Supervisor Agent**: Validates AI outputs against hard safety boundaries (e.g., verifying confidence thresholds, preventing false positives, checking stockpile threshold bounds).
-5. **Report Generator**: Compiles rich, structured Markdown SITREPs for district healthcare administration.
+| Component | File(s) | Responsibility |
+|---|---|---|
+| **Fusion Engine** | `fusion/fusion_engine.py` | Pulls weather, disease, hospital, pharmacy, AQI, NDMA, RSS, and census signals per district and normalizes them into a single `DistrictSnapshot`. Never touches Gemini, never scores risk. |
+| **Risk Engine** | `fusion/risk_engine.py` | 100% pure-Python, deterministic. Computes per-signal sub-scores (weather, disease, hospital, pharmacy, AQI — weighted 0.20 / 0.35 / 0.25 / 0.15 / 0.05), an inter-signal agreement bonus, a confidence score, and the final `overall_risk_score` + `risk_level` (LOW/MODERATE/HIGH/CRITICAL). Identical inputs always produce identical outputs. |
+| **Reasoning Agent** | `reasoning_agent.py` | Calls Gemini with the pre-computed scores and a strict system prompt forbidding it from altering any number. Returns structured JSON: narrative assessment, likely disease vectors, recommended countermeasures. If no `GEMINI_API_KEY` is set (or the call fails), it deterministically falls back to a local rule-based generator — the app never breaks from a missing key. |
+| **Supervisor Agent** | `supervisor.py` | Policy enforcement only — does not compute risk. Checks `risk_score ≥ 75` **and** `confidence_score ≥ 70`; if both hold, auto-fires an `AlertEvent`, logs an audit entry, and persists it to `logs/alerts.json` / `alerts.json`. Otherwise the district is logged as `MONITORING_NORMAL`. |
+| **Report Generator** | `report_generator.py` | Compiles the fused snapshot, risk breakdown, reasoning output, and supervisor decision into a structured Markdown SITREP per district. |
+| **Pipeline Runner** | `runner.py` | Orchestrates one full cycle (Fusion → Risk → Reasoning → Supervisor → Report) across the monitored districts; used by both the CLI and the Express backend. |
+| **Frontend** | `src/` (React 19 + TypeScript + Vite) | District risk map, signal breakdown modals, live alert log, printable SITREPs. |
+| **Backend** | `server.ts` (Express) | Serves the frontend and bridges to the Python pipeline; if Python isn't available on the host, degrades gracefully to a built-in TypeScript fallback data engine. |
+
+`agents/` and `reasoning/` are currently placeholder packages (`__init__.py` only) reserved for further agent decomposition — the working agent logic lives in the top-level `reasoning_agent.py`, `supervisor.py`, and `fusion/` today.
 
 ---
 
-## 🛠️ Tech Stack & Dependencies
+## Monitored districts (demo scope)
 
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Lucide Icons, Recharts, Framer Motion
-- **Backend / Microservices**: Express.js (Node.js CJS/ESM), Python 3 (Standard Library + Gemini REST Integration)
-- **AI Framework**: `@google/genai` / Gemini 1.5/2.0 API Integration with deterministic rule-based fallbacks
+Kamrup Metropolitan, Patna, Ernakulam, Wayanad, Pune, Chennai, Ludhiana, Amritsar, Jalandhar, Patiala, SAS Nagar (Mohali), Chandigarh — configurable in `config/settings.py`.
 
 ---
 
-## 🚀 Quickstart & Local Setup
+## Tech stack
 
-### 1. Prerequisites
-- **Node.js**: `v18.0.0` or higher
-- **npm**: `v9.0.0` or higher
-- **Python** (Optional): `3.10+` (Uses Python standard library; zero extra pip dependencies required)
+- **Frontend:** React 19, TypeScript, Vite, Tailwind CSS, Lucide Icons, Leaflet/react-leaflet, Motion
+- **Backend:** Express (Node.js, ESM/CJS build via esbuild), Python 3 (standard library — zero extra `pip` installs)
+- **AI:** `@google/genai`, Gemini (with deterministic local fallback if no API key is configured)
 
-### 2. Installation & Running
+---
+
+## Quickstart
+
+**Prerequisites:** Node.js 18+, npm 9+, Python 3.10+ (optional — used for the deterministic pipeline; the app falls back to a TypeScript engine if Python isn't found).
+
 ```bash
-# Clone the repository
 git clone https://github.com/BetterCallAnshu/Dhanvantari.git
-cd Dhanvantari
+cd "Dhanvantari/Dhanvantari core"
 
-# Install Node.js dependencies
 npm install
 
-# Configure Environment Variables (Optional)
-cp .env.example .env
+cp .env.example .env.local
+# set GEMINI_API_KEY in .env.local (optional — omit it to run on the local fallback reasoning engine)
 
-# Launch Development Server
 npm run dev
 ```
 
-The application will be accessible at **`http://localhost:3000`**.
+App runs at `http://localhost:3000`.
+
+### Running the deterministic pipeline standalone (CLI)
+
+```bash
+python3 runner.py
+```
 
 ---
 
-## 🌐 Deployment Configuration (Render, Railway, Cloud Run)
+## Deployment (Render / Railway / Cloud Run)
 
-When deploying to platforms like **Render**:
-
-- **Build Command**: `npm install && npm run build`
-- **Start Command**: `npm start`
-- **Root Directory**: `./` (Ensure the root directory points to the repository base where `package.json` resides).
-- **Environment Variables**:
-  - `GEMINI_API_KEY`: *(Optional)* API key for live Gemini AI synthesis.
+- **Build command:** `npm install && npm run build`
+- **Start command:** `npm start`
+- **Root directory:** `Dhanvantari core` — the project (`package.json`, `server.ts`, all source folders) lives inside this subfolder, not the repo root. Set this explicitly in your hosting provider's dashboard (e.g. Render's "Root Directory" field) or the build will fail to find `package.json`.
+- **Env vars:** `GEMINI_API_KEY` (optional)
 
 ---
 
-## 🎯 Evaluation Checklist & Highlights
+## Design principles
 
-| Evaluation Criteria | Implementation Details |
-| :--- | :--- |
-| **System Architecture** | Clean multi-agent decoupled pipeline separating math logic, LLM reasoning, and safety guardrails. |
-| **Technical Rigor** | Full TypeScript type-safety across frontend and server, graceful fallback mechanisms, responsive charting. |
-| **Real-World Impact** | Solves critical public health bottleneck by fusing non-traditional early indicator signals (pharmacy trends + AQI) with traditional hospital load. |
-| **User Experience** | Interactive district heatmaps, signal breakdown modal dialogs, real-time alert logs, and printable report generation. |
+- **Separation of computation and generation.** All numeric scoring is deterministic Python. The LLM only ever explains or narrates numbers it's handed — it's explicitly instructed never to recalculate them.
+- **Graceful degradation.** No Gemini key → local fallback reasoning. No Python on host → TypeScript fallback data engine. The app is designed to never hard-fail from a missing external dependency.
+- **Auditable alerting.** Every auto-triggered alert is logged with its risk score, confidence score, and the exact threshold rule that fired it, persisted to `alerts.json`.
 
 ---
 
-## 📜 License & Acknowledgments
+## Attribution & originality
 
-Built for public health monitoring and early outbreak intervention. Integrates public Indian census, hospital capacity, and air quality indices.
+- **Third-party:** Google Gemini API (`@google/genai`) for reasoning/narrative generation; public Indian census, hospital-capacity, and AQI datasets as fusion inputs.
+- **Original:** signal fusion logic, deterministic risk-scoring formula, alert threshold rules, supervisor policy enforcement, and report/visualization layer are original code for this project.
+
+---
+
+## License
+
+Built for public health monitoring and early outbreak intervention.
