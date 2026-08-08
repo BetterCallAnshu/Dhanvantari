@@ -1,10 +1,14 @@
 {
   "name": "dhanvantari-root-proxy",
   "private": true,
+  "version": "0.0.0",
+  "description": "Proxy package.json. The actual project lives in 'Dhanvantari core/'. This forwards npm commands run from the repo root into that folder so the app works regardless of where install/build/dev is triggered from.",
   "scripts": {
     "install": "cd \"Dhanvantari core\" && npm install",
     "dev": "cd \"Dhanvantari core\" && npm run dev",
     "build": "cd \"Dhanvantari core\" && npm run build",
-    "start": "cd \"Dhanvantari core\" && npm start"
+    "start": "cd \"Dhanvantari core\" && npm start",
+    "lint": "cd \"Dhanvantari core\" && npm run lint",
+    "clean": "cd \"Dhanvantari core\" && npm run clean"
   }
 }
